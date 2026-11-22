@@ -63,7 +63,7 @@ This repo contains P0 manual test cases and Playwright + TypeScript automation f
 ### Install
 
 ```bash
-git clone https://github.com/<your-github-username>/engenious-university-qa.git
+git clone https://github.com/andriizaietsa/engenious-university-qa.git
 cd engenious-university-qa
 npm ci
 npx playwright install chrome
