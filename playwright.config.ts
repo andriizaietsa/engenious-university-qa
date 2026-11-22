@@ -8,11 +8,9 @@ import { env } from './src/config/env';
  */
 export default defineConfig({
   testDir: './tests',
-  fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  // All tests share one real account. Keep concurrency low so the login API doesn't throttle it.
-  workers: process.env.CI ? 1 : 2,
+  workers: 1,
   timeout: 60_000,
   expect: { timeout: 10_000 },
   reporter: process.env.CI

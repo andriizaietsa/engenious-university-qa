@@ -24,13 +24,13 @@
 
 ## Traceability / coverage
 
-| ID | Title | Type | Automated in |
+| ID | Title | Type | Automation |
 | --- | --- | --- | --- |
-| TC-01 | Successful login with valid credentials | Functional, positive | `tests/login.spec.ts` › `TC-01` |
-| TC-02 | Login is rejected for invalid credentials | Functional, negative / Security | `tests/login.spec.ts` › `TC-02` (2 data sets) |
-| TC-03 | Client-side validation of empty and malformed input | Functional, negative | `tests/login.spec.ts` › `TC-03 (A)`, `TC-03 (B)` |
-| TC-04 | Password field and session cookies are protected | Security | `tests/login.spec.ts` › `TC-04` |
-| TC-05 | Protected pages require login, and logout ends the session | Security / Access control | `tests/login.spec.ts` › `TC-05` |
+| TC-01 | Successful login with valid credentials | Functional, positive | Automated (Task 2): `tests/login.spec.ts` › "Automate the login process on Engenious University" |
+| TC-02 | Login is rejected for invalid credentials | Functional, negative / Security | Manual |
+| TC-03 | Client-side validation of empty and malformed input | Functional, negative | Manual |
+| TC-04 | Password field and session cookies are protected | Security | Manual |
+| TC-05 | Logged-out user cannot open /profile, before login or after logout | Security / Access control | Manual |
 
 ---
 
@@ -55,7 +55,7 @@
 
 ## TC-02: Login is rejected for invalid credentials
 
-**Priority:** P0 | **Type:** Negative / Security | **Automated:** Yes (data-driven)
+**Priority:** P0 | **Type:** Negative / Security | **Automated:** No (manual)
 **Precondition:** Common precondition. Open `https://university.engenious.io/login`.
 
 Run once per data set:
@@ -77,7 +77,7 @@ Run once per data set:
 
 ## TC-03: Client-side validation of empty and malformed input
 
-**Priority:** P0 | **Type:** Negative | **Automated:** Yes (2 data sets)
+**Priority:** P0 | **Type:** Negative | **Automated:** No (manual)
 **Precondition:** Common precondition. Open `https://university.engenious.io/login`.
 
 | Data set | Email | Password | Expected validation |
@@ -95,7 +95,7 @@ Run once per data set:
 
 ## TC-04: Password field and session cookies are protected
 
-**Priority:** P0 | **Type:** Security | **Automated:** Yes
+**Priority:** P0 | **Type:** Security | **Automated:** No (manual)
 **Precondition:** Common precondition. Open `https://university.engenious.io/login`.
 
 | # | Step | Expected result |
@@ -109,9 +109,9 @@ Run once per data set:
 
 ---
 
-## TC-05: Protected pages require login, and logout ends the session
+## TC-05: Logged-out user cannot open /profile, before login or after logout
 
-**Priority:** P0 | **Type:** Security / Access control | **Automated:** Yes
+**Priority:** P0 | **Type:** Security / Access control | **Automated:** No (manual)
 **Precondition:** Common precondition. The user is logged out.
 
 | # | Step | Expected result |

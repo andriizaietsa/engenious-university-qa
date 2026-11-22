@@ -6,7 +6,7 @@ This repo contains P0 manual test cases and Playwright + TypeScript automation f
 | Task | Deliverable |
 | --- | --- |
 | Task 1: manual QA | [`docs/manual-test-cases.md`](docs/manual-test-cases.md) has 5 P0 test cases (TC-01 to TC-05) with step-by-step expected results |
-| Task 2: automation | [`tests/login.spec.ts`](tests/login.spec.ts) automates all 5 cases. TC-01 is the requested "Automated Login" scenario. |
+| Task 2: automation | [`tests/login.spec.ts`](tests/login.spec.ts) has one test, "Automate the login process on Engenious University", that follows the Task 2 steps (it matches manual case TC-01) |
 
 ## Tech stack
 
@@ -25,16 +25,14 @@ This repo contains P0 manual test cases and Playwright + TypeScript automation f
 │   ├── config/env.ts                  # Loads and validates environment variables
 │   ├── fixtures/test.ts               # Custom `test` that injects page objects and handles the cookie banner
 │   ├── helpers/
-│   │   ├── auth.helper.ts             # Session cookie and login request helpers
 │   │   ├── cookie-consent.helper.ts   # Auto-dismisses the cookie dialog (page.addLocatorHandler)
-│   │   └── test-data.ts               # Credentials, test data, UI messages, routes
+│   │   └── test-data.ts               # Valid user credentials and routes
 │   └── pages/
 │       ├── BasePage.ts
 │       ├── HomePage.ts
 │       ├── LoginPage.ts
-│       ├── CoursesPage.ts             # Dashboard shown after login
-│       └── components/UserMenu.ts     # Header drawer with Logout
-├── tests/login.spec.ts                # Task 2: automated tests
+│       └── CoursesPage.ts             # Dashboard shown after login
+├── tests/login.spec.ts                # Task 2: automated login test
 ├── playwright.config.ts
 └── .env.example                       # Template for local credentials
 ```
@@ -42,15 +40,15 @@ This repo contains P0 manual test cases and Playwright + TypeScript automation f
 ## Design decisions
 
 - **Page objects** hold the locators and user actions only. Assertions live in the specs.
-- **Fixtures** (`src/fixtures/test.ts`) construct the page objects, so tests stay short and declarative.
+- **Fixtures** (`src/fixtures/test.ts`) construct the page objects, so the test stays short and declarative.
 - **User-facing locators** (`getByRole` with an accessible name) follow
-  [Playwright best practices](https://playwright.dev/docs/best-practices). CSS is used only for MUI helper text and toasts, which have no accessible role.
+  [Playwright best practices](https://playwright.dev/docs/best-practices). CSS is used only for the error toast, which has no accessible role.
 - **The cookie consent modal** sets the rest of the page to `aria-hidden`. A single `page.addLocatorHandler` in the fixture
-  dismisses it whenever it shows up, so no test has to deal with it.
-- **Soft, then hard assertions:** each test collects intermediate checks with `expect.soft` so a single run reports
-  every broken expectation. The **final check is a hard `expect`** that decides pass or fail.
-- **`test.step`** groups the TC-01 steps so the HTML report reads like the manual test case.
-- **Tags:** every test is tagged `@P0`, and TC-01 is also tagged `@smoke`.
+  dismisses it whenever it shows up, so the test doesn't have to deal with it.
+- **Soft, then hard assertions:** the test collects intermediate checks with `expect.soft` so a single run reports
+  every broken expectation. The **final check is a single hard `expect`** (the personal "<Name>'s courses"
+  heading on the dashboard) that decides pass or fail.
+- **`test.step`** mirrors the Task 2 steps one-to-one, so the HTML report reads like the test case.
 
 ## Getting started
 
@@ -82,11 +80,10 @@ cp .env.example .env
 
 | Command | What it does |
 | --- | --- |
-| `npm test` | Run all tests headless |
+| `npm test` | Run the test headless |
 | `npm run test:headed` | Run with a visible browser |
 | `npm run test:ui` | Open Playwright UI mode |
 | `npm run test:debug` | Step through with the Playwright Inspector |
-| `npx playwright test --grep @smoke` | Run only the smoke test (TC-01) |
 | `npm run report` | Open the latest HTML report |
 | `npm run typecheck` | TypeScript type check |
 
