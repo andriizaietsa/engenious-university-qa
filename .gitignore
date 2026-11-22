@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Secrets - never commit real credentials
+.env
+.env.*
+!.env.example
+
+# Playwright artifacts
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+playwright/.auth/
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
